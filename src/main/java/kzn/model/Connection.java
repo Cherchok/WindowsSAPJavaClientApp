@@ -16,6 +16,7 @@ public class Connection {
 
     @SuppressWarnings("WeakerAccess")
     public Connection(String serverIP) {
+        client = new Client();
         this.serverIP = serverIP;
     }
 
@@ -25,7 +26,7 @@ public class Connection {
 
     public boolean tryConnect() {
         try {
-            client = new Client();
+
 
             WebResource webResource = client.resource("http://" + serverIP + "/rest/rest/wmap/test");
 
