@@ -2,7 +2,13 @@ package kzn.model;
 
 import java.util.ArrayList;
 
-public class ClientActivity {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import kzn.controller.Connect;
+
+public class ClientActivity extends Application {
     private static String serverIP = "192.168.0.13:8080";
 
     @SuppressWarnings("WeakerAccess")
@@ -21,6 +27,11 @@ public class ClientActivity {
         else {
             System.out.println("No");
         }
+        launch(args);
     }
 
+    @Override
+    public void start(Stage primaryStage) {
+
+    }
 }
