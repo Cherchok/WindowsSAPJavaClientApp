@@ -7,10 +7,6 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
 public class Connection {
@@ -31,10 +27,12 @@ public class Connection {
         try {
             client = new Client();
 
-            WebResource webResource = client.resource("http://" + serverIP + "/rest/rest/wmap/connection");
+            WebResource webResource = client.resource("http://" + serverIP + "/rest/rest/wmap/test");
 
             ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
 
+            String responsestr = response.getEntity(String.class);
+            System.out.println(responsestr);
             // Status 200 is successful.
             if (response.getStatus() != 200) {
                 System.out.println("Failed with HTTP Error code: " + response.getStatus());
@@ -43,18 +41,40 @@ public class Connection {
                 return false;
             }
 
-
-            ArrayList<Mapa> sapDataList = (new Gson()).fromJson(response.getEntity(String.class),
-                    new TypeToken<ArrayList<Mapa>>() {}.getType());
-
-            for (Mapa i : sapDataList) {
-                System.out.println(i.getName() + "  " + i.getValues());
-            }
-
             return true;
         } catch (ClientHandlerException ex) {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    public ArrayList<Mapa> getConnections() {
+        WebResource webResource = client.resource("http://" + serverIP + "/rest/rest/wmap/connection");
+
+        ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
+
+        // Status 200 is successful.
+        if (response.getStatus() != 200) {
+            System.out.println("Failed with HTTP Error code: " + response.getStatus());
+            String error= response.getEntity(String.class);
+            System.out.println("Error: "+error);
+        }
+
+
+//        ArrayList<Mapa> sapDataList = (new Gson()).fromJson(response.getEntity(String.class),
+//                new TypeToken<ArrayList<Mapa>>() {}.getType());
+
+        ArrayList<Mapa> sapDataList = deserialize(response);
+
+//        for (Mapa i : sapDataList) {
+//            System.out.println(i.getName() + "  " + i.getValues());
+//        }
+
+        return sapDataList;
+    }
+
+    public static ArrayList<Mapa> deserialize(ClientResponse response) {
+        return (new Gson()).fromJson(response.getEntity(String.class),
+                new TypeToken<ArrayList<Mapa>>() {}.getType());
     }
 }
