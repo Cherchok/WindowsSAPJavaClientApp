@@ -1,12 +1,14 @@
 package kzn.model;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import kzn.controller.Connect;
 
 public class ClientActivity extends Application {
     private static String serverIP = "192.168.0.13:8080";
@@ -31,7 +33,11 @@ public class ClientActivity extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-
+    public void start(Stage primaryStage) throws Exception {
+        URL url = (new File("src/main/java/kzn/view/Connect.fxml")).toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        primaryStage.setTitle("Подключение к серверу");
+        primaryStage.setScene(new Scene(root, 350, 275));
+        primaryStage.show();
     }
 }
