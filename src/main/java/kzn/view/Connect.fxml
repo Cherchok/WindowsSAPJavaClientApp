@@ -15,13 +15,16 @@
       </Label>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="99.0" text="IP-адрес сервера:" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="133.0" AnchorPane.topAnchor="99.0">
          <font>
-            <Font size="14.0" />
+            <Font size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="ipField" disable="true" layoutX="97.0" layoutY="119.0" prefHeight="31.0" prefWidth="187.0" promptText="ex. 192.168.0.13:8080" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="119.0" />
+      <TextField fx:id="ipField" disable="true" layoutX="97.0" layoutY="119.0" prefHeight="31.0" prefWidth="187.0" promptText="ex. 192.168.0.13:8080" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="119.0">
+         <font>
+            <Font size="12.0" />
+         </font></TextField>
       <Button fx:id="connectButton" layoutX="133.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#MouseClick" text="Подключиться" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="132.0" AnchorPane.topAnchor="160.0">
          <font>
-            <Font size="14.0" />
+            <Font size="12.0" />
          </font>
       </Button>
    </children>
