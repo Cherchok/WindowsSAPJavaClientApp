@@ -18,7 +18,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="ipField" disable="true" layoutX="97.0" layoutY="119.0" prefHeight="31.0" prefWidth="187.0" promptText="ex. 192.168.0.13:8080" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="119.0">
+      <TextField fx:id="ipField" layoutX="97.0" layoutY="119.0" prefHeight="31.0" prefWidth="187.0" promptText="ex. 192.168.0.13:8080" AnchorPane.leftAnchor="97.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="119.0">
          <font>
             <Font size="12.0" />
          </font></TextField>

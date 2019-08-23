@@ -1,6 +1,7 @@
 package kzn.model;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import kzn.properties.MyPropertiesHolder;
 
 public class ClientActivity extends Application {
     private static String serverIP = "192.168.0.13:8080";
@@ -16,8 +18,13 @@ public class ClientActivity extends Application {
     @SuppressWarnings("WeakerAccess")
     public static Connection connection;
 
-    public static void main( String[] args )
+    public static void main( String[] args ) throws IOException
     {
+        MyPropertiesHolder propertiesHolder = new MyPropertiesHolder("settings.properties", MyPropertiesHolder.MODE_UPDATE);
+        serverIP = propertiesHolder.getProperty("ip");
+        if (serverIP == null) {
+            serverIP = "192.168.0.13:8080";
+        }
         connection = new Connection(serverIP);
         if (connection.tryConnect()) {
             System.out.println("Yes");

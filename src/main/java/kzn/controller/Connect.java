@@ -23,6 +23,7 @@ public class Connect {
 
     public void MouseClick(MouseEvent mouseEvent) {
         ClientActivity.connection.setServerIP(ipField.getText());
+
         if (!ClientActivity.connection.tryConnect()) {
             //(new Alert(Alert.AlertType.ERROR, "Хуйня-с, введите IP", ButtonType.OK)).showAndWait();
         }

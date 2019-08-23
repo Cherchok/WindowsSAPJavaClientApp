@@ -6,27 +6,35 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import kzn.properties.MyPropertiesHolder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Connection {
-    private String serverIP = "192.168.0.13:8080";
+
+    public MyPropertiesHolder ipHolder;
 
     private Client client;
 
     @SuppressWarnings("WeakerAccess")
-    public Connection(String serverIP) {
+    public Connection(String serverIP) throws IOException {
+        try {
+            ipHolder = new MyPropertiesHolder("settings.properties", MyPropertiesHolder.MODE_UPDATE);
+        } catch (Exception ex) {
+            ipHolder = new MyPropertiesHolder("settings.properties", MyPropertiesHolder.MODE_CREATE);
+            ipHolder.setProperty("ip", "192.168.0.13:8080");
+        }
         client = new Client();
-        this.serverIP = serverIP;
     }
 
     public void setServerIP(String newIP) {
-        this.serverIP = newIP;
+        ipHolder.setProperty("ip", newIP);
     }
 
     public boolean tryConnect() {
         try {
-
+            String serverIP = ipHolder.getProperty("ip");
 
             WebResource webResource = client.resource("http://" + serverIP + "/rest/rest/wmap/test");
 
@@ -50,7 +58,7 @@ public class Connection {
     }
 
     public ArrayList<Mapa> getConnections() {
-        WebResource webResource = client.resource("http://" + serverIP + "/rest/rest/wmap/connection");
+        WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") + "/rest/rest/wmap/connection");
 
         ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
 
