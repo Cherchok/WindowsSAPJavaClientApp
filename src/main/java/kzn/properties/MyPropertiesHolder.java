@@ -45,5 +45,8 @@ public class MyPropertiesHolder {
         return properties;
     }
 
+    public void delete() {
+        properties.clear();
+    }
 
 }

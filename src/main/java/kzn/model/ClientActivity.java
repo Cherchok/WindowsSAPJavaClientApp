@@ -20,12 +20,9 @@ public class ClientActivity extends Application {
 
     public static void main( String[] args ) throws IOException
     {
-        MyPropertiesHolder propertiesHolder = new MyPropertiesHolder("settings.properties", MyPropertiesHolder.MODE_UPDATE);
-        serverIP = propertiesHolder.getProperty("ip");
-        if (serverIP == null) {
-            serverIP = "192.168.0.13:8080";
-        }
-        connection = new Connection(serverIP);
+        connection = new Connection();
+        connection.ipHolder.delete();
+        connection = new Connection();
         if (connection.tryConnect()) {
             System.out.println("Yes");
             ArrayList<Mapa> systems = connection.getConnections();
@@ -36,6 +33,7 @@ public class ClientActivity extends Application {
         else {
             System.out.println("No");
         }
+        System.out.println(connection.ipHolder.getProperty("ip"));
         launch(args);
     }
 
@@ -45,6 +43,8 @@ public class ClientActivity extends Application {
         Parent root = FXMLLoader.load(url);
         primaryStage.setTitle("Подключение к серверу");
         primaryStage.setScene(new Scene(root, 350, 275));
+        primaryStage.setResizable(false);
+
         primaryStage.show();
     }
 }

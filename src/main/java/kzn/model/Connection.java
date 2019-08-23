@@ -18,12 +18,13 @@ public class Connection {
     private Client client;
 
     @SuppressWarnings("WeakerAccess")
-    public Connection(String serverIP) throws IOException {
+    public Connection() throws IOException {
         try {
             ipHolder = new MyPropertiesHolder("settings.properties", MyPropertiesHolder.MODE_UPDATE);
         } catch (Exception ex) {
             ipHolder = new MyPropertiesHolder("settings.properties", MyPropertiesHolder.MODE_CREATE);
             ipHolder.setProperty("ip", "192.168.0.13:8080");
+            ipHolder.commit();
         }
         client = new Client();
     }
