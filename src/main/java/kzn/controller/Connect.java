@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 
 import kzn.model.ClientActivity;
+import kzn.model.Connection;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +43,8 @@ public class Connect implements Initializable {
         ClientActivity.connection.setServerIP(ipField.getText());
         ClientActivity.connection.ipHolder.setProperty("ip", ipField.getText());
         ClientActivity.connection.ipHolder.commit();
-        if (!ClientActivity.connection.tryConnect()) {
+        if (!ClientActivity.connection.tryConnect() &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
             Alert errorAlert = new Alert(AlertType.ERROR, "Хуйня-с, введите IP", ButtonType.OK);
             errorAlert.show();
         }

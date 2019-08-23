@@ -6,6 +6,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import kzn.controller.Connect;
 import kzn.properties.MyPropertiesHolder;
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ public class Connection {
     public MyPropertiesHolder ipHolder;
 
     private Client client;
+
+    private ConnectionStatus status;
 
     @SuppressWarnings("WeakerAccess")
     public Connection() throws IOException {
@@ -45,14 +48,17 @@ public class Connection {
             System.out.println(responsestr);
             // Status 200 is successful.
             if (response.getStatus() != 200) {
+                status = ConnectionStatus.IP_ERROR;
                 System.out.println("Failed with HTTP Error code: " + response.getStatus());
                 String error= response.getEntity(String.class);
                 System.out.println("Error: "+error);
                 return false;
             }
+            status = ConnectionStatus.SUCCESS;
 
             return true;
         } catch (ClientHandlerException ex) {
+            status = ConnectionStatus.IP_ERROR;
             ex.printStackTrace();
             return false;
         }
@@ -65,20 +71,14 @@ public class Connection {
 
         // Status 200 is successful.
         if (response.getStatus() != 200) {
+            status = ConnectionStatus.IP_ERROR;
             System.out.println("Failed with HTTP Error code: " + response.getStatus());
             String error= response.getEntity(String.class);
             System.out.println("Error: "+error);
+            return null;
         }
-
-
-//        ArrayList<Mapa> sapDataList = (new Gson()).fromJson(response.getEntity(String.class),
-//                new TypeToken<ArrayList<Mapa>>() {}.getType());
-
+        status = ConnectionStatus.SUCCESS;
         ArrayList<Mapa> sapDataList = deserialize(response);
-
-//        for (Mapa i : sapDataList) {
-//            System.out.println(i.getName() + "  " + i.getValues());
-//        }
 
         return sapDataList;
     }
@@ -86,5 +86,13 @@ public class Connection {
     public static ArrayList<Mapa> deserialize(ClientResponse response) {
         return (new Gson()).fromJson(response.getEntity(String.class),
                 new TypeToken<ArrayList<Mapa>>() {}.getType());
+    }
+
+    public ConnectionStatus getStatus() { return status; }
+
+    public static enum ConnectionStatus {
+        SUCCESS,
+        NETWORK_ERROR,
+        IP_ERROR
     }
 }
