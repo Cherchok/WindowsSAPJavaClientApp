@@ -26,19 +26,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.*;
 
+//Контроллер формы Connect.fxml
 public class Connect implements Initializable {
     @FXML
     private TextField ipField;
 
-    @Override public void initialize(URL url, ResourceBundle rb) {
+    //Отображение IP-адреса при открытии формы
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         ipField.setText(ClientActivity.connection.ipHolder.getProperty("ip"));
 
     }
 
-    public void display() {
-        ipField.setText(ClientActivity.connection.ipHolder.getProperty("ip"));
-    }
-
+    //Попытка подключения к серверу после нажатия кнопки
     public void MouseClick(MouseEvent mouseEvent) throws IOException {
         ClientActivity.connection.setServerIP(ipField.getText());
         ClientActivity.connection.ipHolder.setProperty("ip", ipField.getText());

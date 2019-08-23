@@ -12,16 +12,20 @@ import kzn.properties.MyPropertiesHolder;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//Осуществление всей работы с сетью
 public class Connection {
 
+    //Хранение IP-адреса сервера во внешнем файле
     public MyPropertiesHolder ipHolder;
 
     private Client client;
 
+    //Статус последнего осуществленного запроса
     private ConnectionStatus status;
 
     @SuppressWarnings("WeakerAccess")
     public Connection() throws IOException {
+        //Сохранение IP
         try {
             ipHolder = new MyPropertiesHolder("settings.properties", MyPropertiesHolder.MODE_UPDATE);
         } catch (Exception ex) {
@@ -36,6 +40,7 @@ public class Connection {
         ipHolder.setProperty("ip", newIP);
     }
 
+    //Попытка отправить тестовый запрос на сервер
     public boolean tryConnect() {
         try {
             String serverIP = ipHolder.getProperty("ip");
@@ -64,6 +69,7 @@ public class Connection {
         }
     }
 
+    //Получение списка доступных систем
     public ArrayList<Mapa> getConnections() {
         WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") + "/rest/rest/wmap/connection");
 
@@ -83,11 +89,13 @@ public class Connection {
         return sapDataList;
     }
 
+    //Преобразование ответа от сервера в ArrayList<Mapa>
     public static ArrayList<Mapa> deserialize(ClientResponse response) {
         return (new Gson()).fromJson(response.getEntity(String.class),
                 new TypeToken<ArrayList<Mapa>>() {}.getType());
     }
 
+    //Получение статуса последнего запроса
     public ConnectionStatus getStatus() { return status; }
 
     public static enum ConnectionStatus {
