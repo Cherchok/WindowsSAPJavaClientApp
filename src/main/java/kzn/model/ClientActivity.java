@@ -33,7 +33,6 @@ public class ClientActivity extends Application {
         else {
             System.out.println("No");
         }
-        System.out.println(connection.ipHolder.getProperty("ip"));
         launch(args);
     }
 

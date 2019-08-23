@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 
@@ -22,6 +23,7 @@ import kzn.model.ClientActivity;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.*;
 
 public class Connect implements Initializable {
     @FXML
@@ -41,7 +43,8 @@ public class Connect implements Initializable {
         ClientActivity.connection.ipHolder.setProperty("ip", ipField.getText());
         ClientActivity.connection.ipHolder.commit();
         if (!ClientActivity.connection.tryConnect()) {
-            //(new Alert(Alert.AlertType.ERROR, "Хуйня-с, введите IP", ButtonType.OK)).showAndWait();
+            Alert errorAlert = new Alert(AlertType.ERROR, "Хуйня-с, введите IP", ButtonType.OK);
+            errorAlert.show();
         }
     }
 }
