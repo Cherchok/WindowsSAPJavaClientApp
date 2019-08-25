@@ -1,7 +1,9 @@
 package kzn.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
@@ -26,8 +28,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.*;
 
-//Контроллер формы Connect.fxml
-public class Connect implements Initializable {
+//Контроллер формы ConnectController.fxml
+public class ConnectController implements Initializable {
     @FXML
     private TextField ipField;
 
@@ -35,7 +37,6 @@ public class Connect implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ipField.setText(ClientActivity.connection.ipHolder.getProperty("ip"));
-
     }
 
     //Попытка подключения к серверу после нажатия кнопки
@@ -43,10 +44,20 @@ public class Connect implements Initializable {
         ClientActivity.connection.setServerIP(ipField.getText());
         ClientActivity.connection.ipHolder.setProperty("ip", ipField.getText());
         ClientActivity.connection.ipHolder.commit();
-        if (!ClientActivity.connection.tryConnect() &&
+        boolean connectionSuccess = ClientActivity.connection.tryConnect();
+        if (!connectionSuccess &&
                 ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
             Alert errorAlert = new Alert(AlertType.ERROR, "Хуйня-с, введите IP", ButtonType.OK);
             errorAlert.show();
+        }
+        else if (connectionSuccess &&
+        ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
+//            Stage stage = (Stage) ipField.getScene().getWindow();
+//            stage.close();
+
+//            Platform.exit();
+
+            //ipField.getScene().getWindow().hide();
         }
     }
 }

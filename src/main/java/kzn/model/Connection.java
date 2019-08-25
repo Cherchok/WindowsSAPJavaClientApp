@@ -6,7 +6,6 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import kzn.controller.Connect;
 import kzn.properties.MyPropertiesHolder;
 
 import java.io.IOException;
@@ -58,6 +57,7 @@ public class Connection {
                 String error= response.getEntity(String.class);
                 System.out.println("Error: "+error);
                 return false;
+
             }
             status = ConnectionStatus.SUCCESS;
 

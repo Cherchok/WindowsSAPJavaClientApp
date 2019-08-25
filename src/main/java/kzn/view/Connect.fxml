@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="400.0" minWidth="350.0" prefHeight="411.0" prefWidth="379.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kzn.controller.Connect">
+<AnchorPane minHeight="400.0" minWidth="350.0" prefHeight="411.0" prefWidth="379.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kzn.controller.ConnectController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="32.0" prefHeight="50.0" prefWidth="381.0" text="Подключение" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
          <font>
