@@ -39,20 +39,26 @@ public class ClientActivity extends Application {
     //Отображение формы
     @Override
     public void start(Stage primaryStage) throws Exception {
+        try {
+            URL url = (new File("src/main/java/kzn/view/Start.fxml")).toURI().toURL();
+            FXMLLoader myLoader = new FXMLLoader(url);
+            Pane pane = (Pane) myLoader.load();
 
-        URL url = (new File("src/main/java/kzn/view/Start.fxml")).toURI().toURL();
-        FXMLLoader myLoader = new FXMLLoader(url);
-        Pane pane = (Pane)myLoader.load();
+            final StartController controller = (StartController) myLoader.getController();
 
-        StartController controller = (StartController)myLoader.getController();
+            controller.setPrevStage(primaryStage);
 
-        controller.setPrevStage(primaryStage);
+            primaryStage.setTitle("SAP Windows App");
+            primaryStage.setScene(new Scene(pane, 350, 275));
+            primaryStage.setResizable(false);
 
-        primaryStage.setTitle("SAP Windows App");
-        primaryStage.setScene(new Scene(pane, 350, 275));
-        primaryStage.setResizable(false);
-
-        primaryStage.show();
-        //System.out.println("Success: " + connection.ipHolder.getProperty("ip"));
+            primaryStage.setOnShown(event -> controller.onShow());
+            primaryStage.show();
+            //System.out.println("Success: " + connection.ipHolder.getProperty("ip"));
+        } catch (Exception ex) {
+            System.out.println("Error while oprning Start.fxml");
+            ex.printStackTrace();
+        }
     }
+
 }
