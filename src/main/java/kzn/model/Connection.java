@@ -46,6 +46,8 @@ public class Connection {
 
             WebResource webResource = client.resource("http://" + serverIP + "/rest/rest/wmap/test");
 
+            client.setConnectTimeout(5000);
+
             ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
 
             String responsestr = response.getEntity(String.class);
@@ -64,7 +66,8 @@ public class Connection {
             return true;
         } catch (ClientHandlerException ex) {
             status = ConnectionStatus.IP_ERROR;
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            System.out.println(ex.getMessage());
             return false;
         }
     }

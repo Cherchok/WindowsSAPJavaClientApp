@@ -52,12 +52,7 @@ public class ConnectController implements Initializable {
         }
         else if (connectionSuccess &&
         ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
-//            Stage stage = (Stage) ipField.getScene().getWindow();
-//            stage.close();
 
-//            Platform.exit();
-
-            //ipField.getScene().getWindow().hide();
         }
     }
 }

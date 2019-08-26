@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -52,9 +54,14 @@ public class ClientActivity extends Application {
             primaryStage.setScene(new Scene(pane, 350, 275));
             primaryStage.setResizable(false);
 
+            if(primaryStage.getScene() == null){
+                primaryStage.setScene(new Scene(pane, 350, 275));
+            }
+
             primaryStage.setOnShown(event -> controller.onShow());
+
             primaryStage.show();
-            //System.out.println("Success: " + connection.ipHolder.getProperty("ip"));
+
         } catch (Exception ex) {
             System.out.println("Error while oprning Start.fxml");
             ex.printStackTrace();

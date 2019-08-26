@@ -1,10 +1,14 @@
 package kzn.controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,13 +20,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import java.util.TimerTask;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
-
-public class StartController implements Initializable {
+public class StartController extends Parent {
 
     private Stage stage;
+
+    @FXML
+    private ProgressIndicator progressInd;
+    @FXML
+    private AnchorPane mainPane;
 
     public void setPrevStage(Stage stage){
         this.stage = stage;
@@ -36,9 +41,9 @@ public class StartController implements Initializable {
                 FXMLLoader myLoader = new FXMLLoader(url1);
                 Pane pane = (Pane) myLoader.load();
                 ConnectController controller = (ConnectController) myLoader.getController();
-                this.stage.setTitle("Подключение к серверу");
+                stage.setTitle("Подключение к серверу");
 
-                this.stage.setScene(new Scene(pane, 350, 275));
+                stage.setScene(new Scene(pane, 350, 275));
 
 
             } catch (Exception ex) {
@@ -47,10 +52,5 @@ public class StartController implements Initializable {
 
             }
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
     }
 }
