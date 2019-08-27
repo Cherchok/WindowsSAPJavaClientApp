@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -23,7 +25,7 @@ public class ClientActivity extends Application {
     @SuppressWarnings("WeakerAccess")
     public static Connection connection;
 
-    private static ArrayList<Mapa> systems;
+    private static LinkedHashMap<String, LinkedList<String>> systems;
 
     // клиентский ID полученный от сервера
     private static String clientID;
@@ -33,9 +35,16 @@ public class ClientActivity extends Application {
     private static String password;
     // язык выходных данных
     private static String language;
+    // список модулей
+    public static LinkedList<String> modulesList = new LinkedList<>();
+    // модуль с которым производится работа
+    private static String selectedModule;
+    // id модуля с которым производится работа
+    private static String selectedModuleID;
+    // список id модулей
+    public static LinkedList<String> moduleIDlist = new LinkedList<>();
 
-    public static void main( String[] args ) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         connection = new Connection();
 //        if (connection.tryConnect()) {
 //            System.out.println("Yes");
@@ -54,11 +63,11 @@ public class ClientActivity extends Application {
 
     //GETTERS & SETTERS start
     //--------------------------------------------------
-    public static ArrayList<Mapa> getSystems() {
+    public static LinkedHashMap<String, LinkedList<String>> getSystems() {
         return systems;
     }
 
-    public static void setSystems(ArrayList<Mapa> systems) {
+    public static void setSystems(LinkedHashMap<String, LinkedList<String>> systems) {
         ClientActivity.systems = systems;
     }
 
@@ -95,6 +104,44 @@ public class ClientActivity extends Application {
     }
     //-----------------------------------------------------
     //GETTERS & SETTERS end
+
+    //считываем данные из syst
+    public static void readSyst(LinkedHashMap<String, LinkedList<String>> sapDataList) {
+        //считываем список доступных приложений и номер клиента, передаваемый от сервера
+
+        sapDataList.forEach((name, values) -> {
+                    if (name.equals("REPI2")) {
+                        ClientActivity.modulesList = values;
+                    }
+                    if (name.equals("clientNumber")) {
+                        ClientActivity.clientID = values.get(0);
+                    }
+                    if (name.equals("CPROG")) {
+                        ClientActivity.moduleIDlist = values;
+                    }
+
+
+                }
+
+
+        );
+
+//        for (int i = 0; i < sapDataList.size(); i++) {
+//
+//            if (sapDataList.get(i).getName().equals("REPI2")) {
+//                ClientActivity.modulesList = sapDataList.get(i).getValues();
+//                ClientActivity.modulesList = sapDataList.get(i).getValues();
+//            }
+//            if (sapDataList.get(i).getName().equals("clientNumber")) {
+//                ClientActivity.clientID = sapDataList.get(i).getValues().get(0);
+//
+//            }
+//            if (sapDataList.get(i).getName().equals("CPROG")) {
+//                ClientActivity.moduleIDlist = sapDataList.get(i).getValues();
+//            }
+//            //TODO
+//        }
+    }
 
     //Отображение формы
     @Override

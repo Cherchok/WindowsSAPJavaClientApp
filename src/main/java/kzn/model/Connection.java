@@ -10,6 +10,8 @@ import kzn.properties.MyPropertiesHolder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 //Осуществление всей работы с сетью
 public class Connection {
@@ -73,7 +75,7 @@ public class Connection {
     }
 
     //Получение списка доступных систем
-    public ArrayList<Mapa> getSystemsList() {
+    public LinkedHashMap<String, LinkedList<String>> getSystemsList() {
         WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") + "/rest/rest/wmap/connection");
 
         ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
@@ -87,12 +89,12 @@ public class Connection {
             return null;
         }
         status = ConnectionStatus.SUCCESS;
-        ArrayList<Mapa> sapDataList = deserialize(response);
+        LinkedHashMap<String, LinkedList<String>> sapData = deserialize(response);
 
-        return sapDataList;
+        return sapData;
     }
 
-    public ArrayList<Mapa> tryLogin(String system, String username, String password, String language) {
+    public LinkedHashMap<String, LinkedList<String>> tryLogin(String system, String username, String password, String language) {
         WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") +
                 "/rest/rest/wmap/" + system + "/" + username + "/" + password + "/" + language);
 
@@ -106,15 +108,21 @@ public class Connection {
             return null;
         }
         status = ConnectionStatus.SUCCESS;
-        ArrayList<Mapa> sapDataList = deserialize(response);
 
-        return sapDataList;
+        LinkedHashMap<String, LinkedList<String>> sapData = deserialize(response);
+
+        return sapData;
     }
 
-    //Преобразование ответа от сервера в ArrayList<Mapa>
-    public static ArrayList<Mapa> deserialize(ClientResponse response) {
-        return (new Gson()).fromJson(response.getEntity(String.class),
+    //Преобразование ответа от сервера в LinkedHashMap
+    public static LinkedHashMap<String, LinkedList<String>> deserialize(ClientResponse response) {
+        ArrayList<Mapa> sapDataList = (new Gson()).fromJson(response.getEntity(String.class),
                 new TypeToken<ArrayList<Mapa>>() {}.getType());
+        LinkedHashMap<String, LinkedList<String>> sapData = new LinkedHashMap<>();
+        for (Mapa mapa : sapDataList) {
+            sapData.put(mapa.getName(), mapa.getValues());
+        }
+        return sapData;
     }
 
     //Получение статуса последнего запроса

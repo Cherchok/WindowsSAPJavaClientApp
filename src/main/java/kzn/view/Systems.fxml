@@ -20,6 +20,6 @@
       <TextField fx:id="langField" layoutX="159.0" layoutY="197.0" prefHeight="31.0" prefWidth="46.0" text="RU" AnchorPane.leftAnchor="159.0" AnchorPane.topAnchor="197.0" />
       <Label layoutX="38.0" layoutY="202.0" text="Язык:" />
       <Button layoutX="96.0" layoutY="245.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="43.0" prefWidth="208.0" text="Войти в систему" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="245.0" />
-      <ProgressIndicator fx:id="tryingToEnterIndicator" layoutX="179.0" layoutY="308.0" visible="false" AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="308.0" />
+      <ProgressIndicator fx:id="tryingToLoginIndicator" layoutX="179.0" layoutY="308.0" visible="false" AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="308.0" />
    </children>
 </AnchorPane>

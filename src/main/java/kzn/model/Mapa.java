@@ -35,7 +35,7 @@ public class Mapa {
         this.name = name;
     }
 
-    LinkedList<String> getValues() {
+    public LinkedList<String> getValues() {
         return values;
     }
 
