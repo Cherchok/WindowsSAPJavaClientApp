@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import kzn.model.ClientActivity;
+import kzn.model.Connection;
 
 
 import java.util.concurrent.CompletableFuture;
@@ -25,12 +26,37 @@ public class StartController extends Controller {
 
     //Запуск попытки подключения асинхронно
     public void onShow() {
-        CompletableFuture.supplyAsync(this::tryConnectAsync).thenAccept(this::afterShow);
+        CompletableFuture.supplyAsync(this::tryConnectAsync).thenAccept(this::afterTryConnect);
     }
 
     //Попытка подключения к серверу
     public boolean tryConnectAsync() {
         return ClientActivity.connection.tryConnect();
+    }
+
+    public boolean getSystemsAsync() {
+        ClientActivity.setSystems(ClientActivity.connection.getSystemsList());
+        if (ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) return true;
+        else return false;
+    }
+
+    public void gotSystemsList(boolean requestSuccess) {
+        if (requestSuccess) {
+            this.changeScene("src/main/java/kzn/view/Systems.fxml", "Подключение к системе");
+        }
+        else {
+            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
+        }
+    }
+
+    public void afterTryConnect(boolean connectionSuccess) {
+        if (!connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
+            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
+        } else if (connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
+            CompletableFuture.supplyAsync(this::getSystemsAsync).thenAccept(this::gotSystemsList);
+        }
     }
 
     //Обработка результата попытки подключения
@@ -57,6 +83,9 @@ public class StartController extends Controller {
 //            });
 
             this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
+
+        }
+        else {
 
         }
     }

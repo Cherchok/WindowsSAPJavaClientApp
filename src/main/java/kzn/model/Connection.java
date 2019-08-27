@@ -73,12 +73,31 @@ public class Connection {
     }
 
     //Получение списка доступных систем
-    public ArrayList<Mapa> getConnections() {
+    public ArrayList<Mapa> getSystemsList() {
         WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") + "/rest/rest/wmap/connection");
 
         ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
 
         // Status 200 is successful.
+        if (response.getStatus() != 200) {
+            status = ConnectionStatus.IP_ERROR;
+            System.out.println("Failed with HTTP Error code: " + response.getStatus());
+            String error= response.getEntity(String.class);
+            System.out.println("Error: "+error);
+            return null;
+        }
+        status = ConnectionStatus.SUCCESS;
+        ArrayList<Mapa> sapDataList = deserialize(response);
+
+        return sapDataList;
+    }
+
+    public ArrayList<Mapa> tryLogin(String system, String username, String password, String language) {
+        WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") +
+                "/rest/rest/wmap/" + system + "/" + username + "/" + password + "/" + language);
+
+        ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
+
         if (response.getStatus() != 200) {
             status = ConnectionStatus.IP_ERROR;
             System.out.println("Failed with HTTP Error code: " + response.getStatus());

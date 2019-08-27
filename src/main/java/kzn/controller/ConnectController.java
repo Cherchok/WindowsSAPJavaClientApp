@@ -52,6 +52,27 @@ public class ConnectController extends Controller implements Initializable {
         return ClientActivity.connection.tryConnect();
     }
 
+    public boolean getSystemsAsync() {
+        ClientActivity.setSystems(ClientActivity.connection.getSystemsList());
+        if (ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) return true;
+        else return false;
+    }
+
+    public void gotSystemsList(boolean requestSuccess) {
+        if (requestSuccess) {
+            Platform.runLater(() -> {
+                tryingToConnectIndicator.setVisible(false);
+            });
+            this.changeScene("src/main/java/kzn/view/Systems.fxml", "Подключение к системе");
+        }
+        else {
+            Platform.runLater(() -> {
+                tryingToConnectIndicator.setVisible(false);
+                netErrorAlert.showAndWait();
+            });
+        }
+    }
+
     public void afterTryConnect(boolean connectionSuccess) {
         if (!connectionSuccess &&
                 ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
@@ -61,7 +82,7 @@ public class ConnectController extends Controller implements Initializable {
             });
         } else if (connectionSuccess &&
                 ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
-
+            CompletableFuture.supplyAsync(this::getSystemsAsync).thenAccept(this::gotSystemsList);
         }
     }
 
