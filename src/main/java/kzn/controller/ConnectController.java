@@ -15,8 +15,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 
@@ -27,16 +25,44 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 //Контроллер формы ConnectController.fxml
-public class ConnectController implements Initializable {
+public class ConnectController extends Controller implements Initializable {
+
+    //FXML elements
     @FXML
     private TextField ipField;
+    @FXML
+    private ProgressIndicator tryingToConnectIndicator;
+
+    //Предупреждение об ошибке подключения к серверу
+    public static final Alert netErrorAlert = new Alert(AlertType.ERROR, "Ошибка подключения, проверьте IP адрес сервера", ButtonType.OK);
 
     //Отображение IP-адреса при открытии формы
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        netErrorAlert.setTitle("Connection error");
         ipField.setText(ClientActivity.connection.ipHolder.getProperty("ip"));
+        netErrorAlert.show();
+    }
+
+    //Попытка подключения к серверу
+    public boolean tryConnectAsync() {
+        return ClientActivity.connection.tryConnect();
+    }
+
+    public void afterTryConnect(boolean connectionSuccess) {
+        if (!connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
+            Platform.runLater(() -> {
+                tryingToConnectIndicator.setVisible(false);
+                netErrorAlert.showAndWait();
+            });
+        } else if (connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
+
+        }
     }
 
     //Попытка подключения к серверу после нажатия кнопки
@@ -44,15 +70,8 @@ public class ConnectController implements Initializable {
         ClientActivity.connection.setServerIP(ipField.getText());
         ClientActivity.connection.ipHolder.setProperty("ip", ipField.getText());
         ClientActivity.connection.ipHolder.commit();
-        boolean connectionSuccess = ClientActivity.connection.tryConnect();
-        if (!connectionSuccess &&
-                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
-            Alert errorAlert = new Alert(AlertType.ERROR, "Хуйня-с, введите IP", ButtonType.OK);
-            errorAlert.show();
-        }
-        else if (connectionSuccess &&
-        ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
+        tryingToConnectIndicator.setVisible(true);
+        CompletableFuture.supplyAsync(this::tryConnectAsync).thenAccept(this::afterTryConnect);
 
-        }
     }
 }
