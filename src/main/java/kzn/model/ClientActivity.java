@@ -42,28 +42,30 @@ public class ClientActivity extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
+            //Загрузка Start.fxml
             URL url = (new File("src/main/java/kzn/view/Start.fxml")).toURI().toURL();
             FXMLLoader myLoader = new FXMLLoader(url);
             Pane pane = (Pane) myLoader.load();
 
+            //Создание контроллера сцены
             final StartController controller = (StartController) myLoader.getController();
 
+            //Передача контроллеру текущей Stage
             controller.setPrevStage(primaryStage);
 
+            //Задание Scene для Stage
             primaryStage.setTitle("SAP Windows App");
-            primaryStage.setScene(new Scene(pane, 350, 275));
+            primaryStage.setScene(new Scene(pane));
             primaryStage.setResizable(false);
+            primaryStage.sizeToScene();
 
-            if(primaryStage.getScene() == null){
-                primaryStage.setScene(new Scene(pane, 350, 275));
-            }
-
+            //При открытии окна вызвать метод onShow()
             primaryStage.setOnShown(event -> controller.onShow());
 
             primaryStage.show();
 
         } catch (Exception ex) {
-            System.out.println("Error while oprning Start.fxml");
+            System.out.println("Error while opening Start.fxml");
             ex.printStackTrace();
         }
     }
