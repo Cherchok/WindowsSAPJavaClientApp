@@ -34,12 +34,26 @@ public class StartController extends Controller {
         return ClientActivity.connection.tryConnect();
     }
 
+    //Обработка попытки подключения
+    public void afterTryConnect(boolean connectionSuccess) {
+        if (!connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
+            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
+        } else if (connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
+            //Запустить выполнение gotSystemsList(getSystemsAsync()) в отдельном потоке
+            CompletableFuture.supplyAsync(this::getSystemsAsync).thenAccept(this::gotSystemsList);
+        }
+    }
+
+    //Получение списка систем
     public boolean getSystemsAsync() {
         ClientActivity.setSystems(ClientActivity.connection.getSystemsList());
         if (ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) return true;
         else return false;
     }
 
+    //Обрабока результата получения списка систем
     public void gotSystemsList(boolean requestSuccess) {
         if (requestSuccess) {
             this.changeScene("src/main/java/kzn/view/Systems.fxml", "Подключение к системе");
@@ -49,44 +63,4 @@ public class StartController extends Controller {
         }
     }
 
-    public void afterTryConnect(boolean connectionSuccess) {
-        if (!connectionSuccess &&
-                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
-            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
-        } else if (connectionSuccess &&
-                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
-            CompletableFuture.supplyAsync(this::getSystemsAsync).thenAccept(this::gotSystemsList);
-        }
-    }
-
-    //Обработка результата попытки подключения
-    public void afterShow(boolean connectionSuccess) {
-        //boolean connectionSuccess = ClientActivity.connection.tryConnect();
-        if (!connectionSuccess) {
-
-            //Обработка работы с UI в JavaFX Application Thread
-//            Platform.runLater(() -> {
-//                try {
-//                    URL url1 = (new File("src/main/java/kzn/view/Connect.fxml")).toURI().toURL();
-//                    FXMLLoader myLoader = new FXMLLoader(url1);
-//                    Pane pane = (Pane) myLoader.load();
-//                    ConnectController controller = (ConnectController) myLoader.getController();
-//                    controller.netErrorAlert.show();
-//                    stage.setTitle("Подключение к серверу");
-//
-//                    stage.setScene(new Scene(pane));
-//                    stage.sizeToScene();
-//                } catch (Exception ex) {
-//                    System.out.println("Error while opening form Connect.fxml");
-//                    ex.printStackTrace();
-//                }
-//            });
-
-            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
-
-        }
-        else {
-
-        }
-    }
 }

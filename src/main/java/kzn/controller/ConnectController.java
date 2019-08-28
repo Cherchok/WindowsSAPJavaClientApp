@@ -52,12 +52,30 @@ public class ConnectController extends Controller implements Initializable {
         return ClientActivity.connection.tryConnect();
     }
 
+    //Обработка попытки подключения
+    public void afterTryConnect(boolean connectionSuccess) {
+        if (!connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
+            Platform.runLater(() -> {
+                tryingToConnectIndicator.setVisible(false);
+                netErrorAlert.showAndWait();
+            });
+        } else if (connectionSuccess &&
+                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
+            //Запустить выполнение gotSystemsList(getSystemsAsync()) в отдельном потоке
+            CompletableFuture.supplyAsync(this::getSystemsAsync).thenAccept(this::gotSystemsList);
+        }
+    }
+
+    //Получение списка систем
     public boolean getSystemsAsync() {
         ClientActivity.setSystems(ClientActivity.connection.getSystemsList());
         if (ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) return true;
         else return false;
     }
 
+
+    //Обрабока результата получения списка систем
     public void gotSystemsList(boolean requestSuccess) {
         if (requestSuccess) {
             Platform.runLater(() -> {
@@ -73,25 +91,16 @@ public class ConnectController extends Controller implements Initializable {
         }
     }
 
-    public void afterTryConnect(boolean connectionSuccess) {
-        if (!connectionSuccess &&
-                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
-            Platform.runLater(() -> {
-                tryingToConnectIndicator.setVisible(false);
-                netErrorAlert.showAndWait();
-            });
-        } else if (connectionSuccess &&
-                ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
-            CompletableFuture.supplyAsync(this::getSystemsAsync).thenAccept(this::gotSystemsList);
-        }
-    }
-
     //Попытка подключения к серверу после нажатия кнопки
     public void MouseClick(MouseEvent mouseEvent) throws IOException {
+        //Сохранение нового IP  в файл
         ClientActivity.connection.setServerIP(ipField.getText());
         ClientActivity.connection.ipHolder.setProperty("ip", ipField.getText());
         ClientActivity.connection.ipHolder.commit();
+
         tryingToConnectIndicator.setVisible(true);
+
+        //Запустить выполнение afterTryConnect(tryConnectAsync()) в отдельном потоке
         CompletableFuture.supplyAsync(this::tryConnectAsync).thenAccept(this::afterTryConnect);
 
     }

@@ -18,12 +18,20 @@ public abstract class Controller {
         this.stage = stage;
     }
 
+    //Изменение сцены на текущей Stage
     public void changeScene(String scenePath, String title) {
         Platform.runLater(() -> {
                     try {
                         URL url1 = (new File(scenePath)).toURI().toURL();
                         FXMLLoader myLoader = new FXMLLoader(url1);
                         Pane pane = (Pane) myLoader.load();
+
+                        //Создание контроллера сцены
+                        final Controller controller = (Controller) myLoader.getController();
+
+                        //Передача контроллеру текущей Stage
+                        controller.setPrevStage(stage);
+
                         stage.setTitle(title);
 
                         stage.setScene(new Scene(pane));

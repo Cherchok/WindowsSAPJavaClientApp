@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -46,16 +47,6 @@ public class ClientActivity extends Application {
 
     public static void main(String[] args) throws IOException {
         connection = new Connection();
-//        if (connection.tryConnect()) {
-//            System.out.println("Yes");
-//            ArrayList<Mapa> systems = connection.getConnections();
-//            for (Mapa sys : systems) {
-//                System.out.println(sys.getName() + "  " + sys.getValues());
-//            }
-//        }
-//        else {
-//            System.out.println("No");
-//        }
         launch(args);
 
     }
@@ -109,22 +100,20 @@ public class ClientActivity extends Application {
     public static void readSyst(LinkedHashMap<String, LinkedList<String>> sapDataList) {
         //считываем список доступных приложений и номер клиента, передаваемый от сервера
 
-        sapDataList.forEach((name, values) -> {
-                    if (name.equals("REPI2")) {
-                        ClientActivity.modulesList = values;
-                    }
-                    if (name.equals("clientNumber")) {
-                        ClientActivity.clientID = values.get(0);
-                    }
-                    if (name.equals("CPROG")) {
-                        ClientActivity.moduleIDlist = values;
-                    }
+        for (Map.Entry<String, LinkedList<String>> entry : sapDataList.entrySet()) {
+            String key = entry.getKey();
+            LinkedList<String> values = entry.getValue();
+            if (key.equals("REPI2")) {
+                ClientActivity.modulesList = values;
+            } else if (key.equals("clientNumber")) {
+                ClientActivity.clientID = values.get(0);
+            }
+            if (key.equals("CPROG")) {
+                ClientActivity.moduleIDlist = values;
+            }
 
 
-                }
-
-
-        );
+        }
 
 //        for (int i = 0; i < sapDataList.size(); i++) {
 //
@@ -139,7 +128,6 @@ public class ClientActivity extends Application {
 //            if (sapDataList.get(i).getName().equals("CPROG")) {
 //                ClientActivity.moduleIDlist = sapDataList.get(i).getValues();
 //            }
-//            //TODO
 //        }
     }
 

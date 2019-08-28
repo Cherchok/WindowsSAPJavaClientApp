@@ -37,8 +37,9 @@ public class Connection {
         client = new Client();
     }
 
-    public void setServerIP(String newIP) {
+    public void setServerIP(String newIP) throws IOException {
         ipHolder.setProperty("ip", newIP);
+        ipHolder.commit();
     }
 
     //Попытка отправить тестовый запрос на сервер
@@ -94,7 +95,9 @@ public class Connection {
         return sapData;
     }
 
+    //Попытка войти в систему
     public LinkedHashMap<String, LinkedList<String>> tryLogin(String system, String username, String password, String language) {
+
         WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") +
                 "/rest/rest/wmap/" + system + "/" + username + "/" + password + "/" + language);
 
@@ -103,7 +106,7 @@ public class Connection {
         if (response.getStatus() != 200) {
             status = ConnectionStatus.IP_ERROR;
             System.out.println("Failed with HTTP Error code: " + response.getStatus());
-            String error= response.getEntity(String.class);
+            String error = response.getEntity(String.class);
             System.out.println("Error: "+error);
             return null;
         }
