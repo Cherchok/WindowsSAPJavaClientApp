@@ -103,11 +103,12 @@ public class SystemsController extends Controller implements Initializable {
 
             System.out.println(ClientActivity.getClientID());
 
-            for (String module : ClientActivity.modulesList) {
+            for (String module : ClientActivity.getModulesList()) {
                 System.out.println(module);
             }
 
-            //this.changeScene("src/main/java/kzn/view/Systems.fxml", "Подключение к системе");
+
+            this.changeScene("src/main/java/kzn/view/Modules.fxml", "Выбор модуля");
         }
         else {
             Platform.runLater(() -> {

@@ -37,13 +37,13 @@ public class ClientActivity extends Application {
     // язык выходных данных
     private static String language;
     // список модулей
-    public static LinkedList<String> modulesList = new LinkedList<>();
+    private static LinkedList<String> modulesList = new LinkedList<>();
     // модуль с которым производится работа
     private static String selectedModule;
     // id модуля с которым производится работа
     private static String selectedModuleID;
     // список id модулей
-    public static LinkedList<String> moduleIDlist = new LinkedList<>();
+    private static LinkedList<String> moduleIDlist = new LinkedList<>();
 
     public static void main(String[] args) throws IOException {
         connection = new Connection();
@@ -58,9 +58,7 @@ public class ClientActivity extends Application {
         return systems;
     }
 
-    public static void setSystems(LinkedHashMap<String, LinkedList<String>> systems) {
-        ClientActivity.systems = systems;
-    }
+    public static void setSystems(LinkedHashMap<String, LinkedList<String>> systems) { ClientActivity.systems = systems; }
 
     public static String getClientID() {
         return clientID;
@@ -93,13 +91,16 @@ public class ClientActivity extends Application {
     public static void setLanguage(String language) {
         ClientActivity.language = language;
     }
-    //-----------------------------------------------------
+
+    public static LinkedList<String> getModulesList() { return modulesList; }
+
+    public static void setModulesList(LinkedList<String> modulesList) { ClientActivity.modulesList = modulesList; }
+    //--------------------------------------------------
     //GETTERS & SETTERS end
 
     //считываем данные из syst
     public static void readSyst(LinkedHashMap<String, LinkedList<String>> sapDataList) {
         //считываем список доступных приложений и номер клиента, передаваемый от сервера
-
         for (Map.Entry<String, LinkedList<String>> entry : sapDataList.entrySet()) {
             String key = entry.getKey();
             LinkedList<String> values = entry.getValue();
@@ -111,24 +112,8 @@ public class ClientActivity extends Application {
             if (key.equals("CPROG")) {
                 ClientActivity.moduleIDlist = values;
             }
-
-
         }
 
-//        for (int i = 0; i < sapDataList.size(); i++) {
-//
-//            if (sapDataList.get(i).getName().equals("REPI2")) {
-//                ClientActivity.modulesList = sapDataList.get(i).getValues();
-//                ClientActivity.modulesList = sapDataList.get(i).getValues();
-//            }
-//            if (sapDataList.get(i).getName().equals("clientNumber")) {
-//                ClientActivity.clientID = sapDataList.get(i).getValues().get(0);
-//
-//            }
-//            if (sapDataList.get(i).getName().equals("CPROG")) {
-//                ClientActivity.moduleIDlist = sapDataList.get(i).getValues();
-//            }
-//        }
     }
 
     //Отображение формы
