@@ -37,7 +37,7 @@ public class ConnectController extends Controller implements Initializable {
     private ProgressIndicator tryingToConnectIndicator;
 
     //Предупреждение об ошибке подключения к серверу
-    public static final Alert netErrorAlert = new Alert(AlertType.ERROR, "Ошибка подключения, проверьте IP адрес сервера", ButtonType.OK);
+    public static final Alert netErrorAlert = new Alert(AlertType.ERROR, "Connection error, check server IP address", ButtonType.OK);
 
     //Отображение IP-адреса при открытии формы
     @Override
@@ -81,7 +81,7 @@ public class ConnectController extends Controller implements Initializable {
             Platform.runLater(() -> {
                 tryingToConnectIndicator.setVisible(false);
             });
-            this.changeScene("src/main/java/kzn/view/Systems.fxml", "Подключение к системе");
+            this.changeScene("src/main/java/kzn/view/Systems.fxml", "System connection");
         }
         else {
             Platform.runLater(() -> {

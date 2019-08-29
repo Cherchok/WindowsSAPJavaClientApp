@@ -155,7 +155,7 @@ public class ClientActivity extends Application {
             //Задание Scene для Stage
             primaryStage.setTitle("SAP Windows App");
             primaryStage.setScene(new Scene(pane));
-            primaryStage.setResizable(false);
+            //primaryStage.setResizable(false);
             primaryStage.setFullScreen(false);
             primaryStage.sizeToScene();
 

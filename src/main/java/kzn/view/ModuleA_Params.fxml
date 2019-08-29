@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="kzn.controller.ModuleA_Params"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="580.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kzn.controller.ModuleA_Params">
+   <children>
+      <VBox layoutX="30.0" layoutY="35.0" spacing="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+               <children>
+                  <Label prefWidth="105.0" text="Table:">
+                     <HBox.margin>
+                        <Insets left="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="tableField" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+               <children>
+                  <Label prefWidth="105.0" text="Fields quantity:">
+                     <HBox.margin>
+                        <Insets left="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="quantityField" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+               <children>
+                  <Label prefWidth="105.0" text="Where:">
+                     <HBox.margin>
+                        <Insets left="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="whereField" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+               <children>
+                  <Label prefWidth="105.0" text="Order:">
+                     <HBox.margin>
+                        <Insets left="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="orderField" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+               <children>
+                  <Label prefWidth="105.0" text="Group:">
+                     <HBox.margin>
+                        <Insets left="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="groupField" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+               <children>
+                  <Label prefWidth="105.0" text="Fields names:">
+                     <HBox.margin>
+                        <Insets left="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="namesField" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox maxHeight="-Infinity">
+               <children>
+                  <Label prefWidth="105.0" text="Language:">
+                     <HBox.margin>
+                        <Insets left="30.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="langField" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button layoutX="105.0" layoutY="467.0" mnemonicParsing="false" onAction="#onEnter" prefHeight="51.0" prefWidth="290.0" text="Enter" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="105.0" AnchorPane.rightAnchor="105.0" />
+   </children>
 </AnchorPane>

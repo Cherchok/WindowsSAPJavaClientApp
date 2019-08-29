@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -13,18 +9,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="350.0" minWidth="400.0" prefHeight="388.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kzn.controller.SystemsController">
+<AnchorPane minHeight="350.0" minWidth="400.0" prefHeight="430.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kzn.controller.SystemsController">
    <children>
-      <Label layoutX="38.0" layoutY="44.0" text="Система:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="44.0" />
+      <Label layoutX="38.0" layoutY="44.0" text="System:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="44.0" />
       <ChoiceBox fx:id="systemsListBox" layoutX="159.0" layoutY="39.0" onAction="#onSystemSelected" prefHeight="31.0" prefWidth="208.0" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="39.0" />
       <Accordion layoutX="38.0" layoutY="144.0" />
-      <Label layoutX="38.0" layoutY="99.0" text="Логин:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="99.0" />
+      <Label layoutX="38.0" layoutY="99.0" text="Username:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="99.0" />
       <TextField fx:id="usernameField" layoutX="159.0" layoutY="94.0" prefHeight="31.0" prefWidth="208.0" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="94.0" />
-      <Label layoutX="38.0" layoutY="149.0" text="Пароль:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="149.0" />
+      <Label layoutX="38.0" layoutY="149.0" text="Password:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="149.0" />
       <PasswordField fx:id="passwordField" layoutX="159.0" layoutY="144.0" prefHeight="31.0" prefWidth="208.0" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="144.0" />
       <TextField fx:id="langField" layoutX="159.0" layoutY="197.0" prefHeight="31.0" prefWidth="46.0" text="r" AnchorPane.leftAnchor="159.0" AnchorPane.topAnchor="197.0" />
-      <Label layoutX="38.0" layoutY="202.0" text="Язык:" />
-      <Button fx:id="loginButton" disable="true" layoutX="96.0" layoutY="245.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="43.0" prefWidth="208.0" text="Войти в систему" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="245.0" />
+      <Label layoutX="38.0" layoutY="202.0" text="Language:" />
+      <Button fx:id="loginButton" disable="true" layoutX="96.0" layoutY="245.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="43.0" prefWidth="208.0" text="Enter the system" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="245.0" />
       <ProgressIndicator fx:id="tryingToLoginIndicator" layoutX="179.0" layoutY="308.0" visible="false" AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="308.0" />
       <!--<HBox layoutX="4.0" layoutY="337.0" prefWidth="400.0" style="-fx-background-color: lightgrey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>

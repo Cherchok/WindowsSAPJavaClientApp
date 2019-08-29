@@ -64,10 +64,10 @@ public class ModulesController extends Controller implements Initializable {
         if (selectedAppID != null) {
             switch (selectedAppID) {
                 case "A":
-                    this.changeScene("src/main/java/kzn/view/ModuleA_Params.fxml", "Параметры таблицы");
+                    this.changeScene("src/main/java/kzn/view/ModuleA_Params.fxml", "Table parameters");
                     break;
                 case "Z":
-                    this.changeScene("src/main/java/kzn/view/ModuleZ_QRscan.fxml", "Сканирование QR кода");
+                    this.changeScene("src/main/java/kzn/view/ModuleZ_QRscan.fxml", "QR scanning");
                     break;
                 default:
                     break;

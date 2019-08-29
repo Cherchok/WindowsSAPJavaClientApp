@@ -44,7 +44,7 @@ public abstract class Controller {
                         AnchorPane.setLeftAnchor(menuBox, 0D);
                         AnchorPane.setRightAnchor(menuBox, 0D);
                         AnchorPane.setBottomAnchor(menuBox, 0D);
-                        //menuBox.getStylesheets().add("-fx-background-color: lightgrey;");
+                        menuBox.setStyle("-fx-background-color: lightgrey;");
                         menuList.put(title, scenePath);
                         for (String menuItem : menuList.keySet()) {
                             if (!menuList.keySet().toArray()[0].equals(menuItem)) {
@@ -52,7 +52,6 @@ public abstract class Controller {
                                 HBox.setMargin(arrowLabel, new Insets(3, 0, 0, 0));
                                 menuBox.getChildren().add(arrowLabel);
                             }
-                            //    menuBox.getChildren().add(new Label(">"));
                             Button menuItemButton = new Button(menuItem);
                             menuItemButton.setText(menuItem);
                             menuItemButton.setOnAction((ae) -> {
@@ -71,6 +70,7 @@ public abstract class Controller {
                         }
                         pane.getChildren().add(menuBox);
 
+
                         //Создание контроллера сцены
                         final Controller controller = (Controller) myLoader.getController();
 
@@ -81,6 +81,8 @@ public abstract class Controller {
 
                         stage.setScene(new Scene(pane));
                         stage.sizeToScene();
+                        stage.setMinHeight(pane.getPrefHeight());
+                        stage.setMinWidth(pane.getPrefWidth());
                     } catch (Exception ex) {
                         System.out.println("Error while changing Scene to" + scenePath);
                         ex.printStackTrace();

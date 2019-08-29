@@ -56,10 +56,10 @@ public class StartController extends Controller {
     //Обрабока результата получения списка систем
     public void gotSystemsList(boolean requestSuccess) {
         if (requestSuccess) {
-            this.changeScene("src/main/java/kzn/view/Systems.fxml", "Подключение к системе");
+            this.changeScene("src/main/java/kzn/view/Systems.fxml", "System connection");
         }
         else {
-            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
+            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Server connection");
         }
     }
 

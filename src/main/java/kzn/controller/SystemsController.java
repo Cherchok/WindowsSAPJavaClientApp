@@ -40,13 +40,13 @@ public class SystemsController extends Controller implements Initializable {
 
     //ALERTS start
     public static final Alert loginErrorAlert = new Alert(Alert.AlertType.ERROR,
-            "Ошибка входа\nНеправильный логин или пароль",
+            "Wrong username or password",
             ButtonType.OK);
     public static final Alert systemNotChosenAlert = new Alert(Alert.AlertType.WARNING,
-            "Выберите систему",
+            "Select the system",
             ButtonType.OK);
     public static final Alert incorrectLangCodeAlert = new Alert(Alert.AlertType.ERROR,
-            "Неправильный код языка",
+            "Wrong language code",
             ButtonType.OK);
     //ALERTS end
 
@@ -110,7 +110,7 @@ public class SystemsController extends Controller implements Initializable {
             }
 
 
-            this.changeScene("src/main/java/kzn/view/Modules.fxml", "Выбор модуля");
+            this.changeScene("src/main/java/kzn/view/Modules.fxml", "Module selection");
         }
         else {
             Platform.runLater(() -> {
