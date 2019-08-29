@@ -117,6 +117,8 @@ public class Connection {
         return sapData;
     }
 
+
+
     //Преобразование ответа от сервера в LinkedHashMap
     public static LinkedHashMap<String, LinkedList<String>> deserialize(ClientResponse response) {
         ArrayList<Mapa> sapDataList = (new Gson()).fromJson(response.getEntity(String.class),
