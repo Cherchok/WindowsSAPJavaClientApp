@@ -31,10 +31,12 @@ public class SystemsController extends Controller implements Initializable {
     private TextField langField;
     @FXML
     private ProgressIndicator tryingToLoginIndicator;
+    @FXML
+    private Button loginButton;
 
-    public MyPropertiesHolder userdataHolder;
     //FXML elements end
 
+    public MyPropertiesHolder userdataHolder;
 
     //ALERTS start
     public static final Alert loginErrorAlert = new Alert(Alert.AlertType.ERROR,
@@ -135,5 +137,9 @@ public class SystemsController extends Controller implements Initializable {
         tryingToLoginIndicator.setVisible(true);
         //Запустить выполнение afterLogin(tryLoginAsync()) в отдельном потоке
         CompletableFuture.supplyAsync(this::tryToLoginAsync).thenAccept(this::afterLogin);
+    }
+
+    public void onSystemSelected(ActionEvent actionEvent) {
+        loginButton.setDisable(false);
     }
 }

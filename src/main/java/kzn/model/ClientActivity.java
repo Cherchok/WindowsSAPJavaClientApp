@@ -95,6 +95,25 @@ public class ClientActivity extends Application {
     public static LinkedList<String> getModulesList() { return modulesList; }
 
     public static void setModulesList(LinkedList<String> modulesList) { ClientActivity.modulesList = modulesList; }
+
+    public static void setSelectedModule(String selectedModule) { ClientActivity.selectedModule = selectedModule; }
+
+    // получем id выбранного модуля
+    public static String getSelectedModuleID() {
+        String selectedApp = "";
+        int index = 999;
+        for (int i = 0; i < ClientActivity.modulesList.size(); i++) {
+            if (ClientActivity.modulesList.get(i).contains(ClientActivity.selectedModule)
+                    && !ClientActivity.selectedModule.equals("")) {
+                index = i;
+            }
+        }
+        if (index != 999) {
+            selectedApp = ClientActivity.moduleIDlist.get(index).trim();
+        }
+        return selectedApp;
+    }
+
     //--------------------------------------------------
     //GETTERS & SETTERS end
 
@@ -127,6 +146,8 @@ public class ClientActivity extends Application {
 
             //Создание контроллера сцены
             final StartController controller = (StartController) myLoader.getController();
+
+
 
             //Передача контроллеру текущей Stage
             controller.setPrevStage(primaryStage);
