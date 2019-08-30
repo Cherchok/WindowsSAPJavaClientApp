@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -9,30 +13,46 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="350.0" minWidth="400.0" prefHeight="430.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kzn.controller.SystemsController">
-   <children>
-      <Label layoutX="38.0" layoutY="44.0" text="System:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="44.0" />
-      <ChoiceBox fx:id="systemsListBox" layoutX="159.0" layoutY="39.0" onAction="#onSystemSelected" prefHeight="31.0" prefWidth="208.0" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="39.0" />
-      <Accordion layoutX="38.0" layoutY="144.0" />
-      <Label layoutX="38.0" layoutY="99.0" text="Username:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="99.0" />
-      <TextField fx:id="usernameField" layoutX="159.0" layoutY="94.0" prefHeight="31.0" prefWidth="208.0" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="94.0" />
-      <Label layoutX="38.0" layoutY="149.0" text="Password:" AnchorPane.leftAnchor="38.0" AnchorPane.topAnchor="149.0" />
-      <PasswordField fx:id="passwordField" layoutX="159.0" layoutY="144.0" prefHeight="31.0" prefWidth="208.0" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="144.0" />
-      <TextField fx:id="langField" layoutX="159.0" layoutY="197.0" prefHeight="31.0" prefWidth="46.0" text="r" AnchorPane.leftAnchor="159.0" AnchorPane.topAnchor="197.0" />
-      <Label layoutX="38.0" layoutY="202.0" text="Language:" />
-      <Button fx:id="loginButton" disable="true" layoutX="96.0" layoutY="245.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="43.0" prefWidth="208.0" text="Enter the system" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="245.0" />
-      <ProgressIndicator fx:id="tryingToLoginIndicator" layoutX="179.0" layoutY="308.0" visible="false" AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="308.0" />
-      <!--<HBox layoutX="4.0" layoutY="337.0" prefWidth="400.0" style="-fx-background-color: lightgrey;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Button mnemonicParsing="false" text="Button" />
-            <Label maxHeight="1.7976931348623157E308" text="&gt;&gt;">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Button" />
-            <Label layoutX="75.0" layoutY="10.0" maxHeight="1.7976931348623157E308" text="&gt;&gt;" />
-         </children>
-      </HBox>-->
-   </children>
+<AnchorPane minHeight="350.0" minWidth="400.0" prefHeight="430.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kzn.controller.SystemsController">
+    <children>
+        <VBox layoutX="30.0" layoutY="35.0" spacing="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+            <children>
+                <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+                    <children>
+                        <Label minWidth="-Infinity" prefWidth="80.0" text="System:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></Label>
+                        <ChoiceBox fx:id="systemsListBox" onAction="#onSystemSelected" prefHeight="31.0" prefWidth="264.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+                    <children>
+                        <Label minWidth="-Infinity" prefWidth="80.0" text="Username:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></Label>
+                        <TextField fx:id="usernameField" prefWidth="208.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+                    <children>
+                        <Label minWidth="-Infinity" prefWidth="80.0" text="Password:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></Label>
+                        <PasswordField fx:id="passwordField" prefWidth="208.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox maxHeight="-Infinity" prefHeight="31.0" prefWidth="352.0">
+                    <children>
+                        <Label prefWidth="80.0" text="Language:" />
+                        <TextField fx:id="langField" maxWidth="-Infinity" prefHeight="31.0" prefWidth="46.0" text="r" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <Button fx:id="loginButton" disable="true" layoutX="96.0" layoutY="245.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="43.0" prefWidth="208.0" text="Enter the system" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="245.0" />
+        <ProgressIndicator fx:id="tryingToLoginIndicator" layoutX="179.0" layoutY="308.0" visible="false" AnchorPane.leftAnchor="179.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="308.0" />
+    </children>
 </AnchorPane>

@@ -86,8 +86,8 @@ public class Connection {
         if (response.getStatus() != 200) {
             status = ConnectionStatus.IP_ERROR;
             System.out.println("Failed with HTTP Error code: " + response.getStatus());
-            String error= response.getEntity(String.class);
-            System.out.println("Error: "+error);
+            //String error= response.getEntity(String.class);
+            //System.out.println("Error: "+error);
             return null;
         }
         status = ConnectionStatus.SUCCESS;
@@ -118,6 +118,8 @@ public class Connection {
 
         return sapData;
     }
+
+
 
     //Преобразование ответа от сервера в LinkedHashMap
     public static LinkedHashMap<String, LinkedList<String>> deserialize(ClientResponse response) {

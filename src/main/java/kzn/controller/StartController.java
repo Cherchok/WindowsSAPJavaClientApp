@@ -40,7 +40,7 @@ public class StartController extends Controller {
     public void afterTryConnect(boolean connectionSuccess) {
         if (!connectionSuccess &&
                 ClientActivity.connection.getStatus() == Connection.ConnectionStatus.IP_ERROR) {
-            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Подключение к серверу");
+            this.changeScene("src/main/java/kzn/view/Connect.fxml", "Server connection");
         } else if (connectionSuccess &&
                 ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
             //Запустить выполнение gotSystemsList(getSystemsAsync()) в отдельном потоке
