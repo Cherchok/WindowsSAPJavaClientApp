@@ -26,8 +26,8 @@ public class ClientActivity extends Application {
     @SuppressWarnings("WeakerAccess")
     public static Connection connection;
 
+    //Список систем
     private static LinkedHashMap<String, LinkedList<String>> systems;
-
     // клиентский ID полученный от сервера
     private static String clientID;
     // имя пользователя
@@ -44,12 +44,21 @@ public class ClientActivity extends Application {
     private static String selectedModuleID;
     // список id модулей
     private static LinkedList<String> moduleIDlist = new LinkedList<>();
+    // список запросов к серверу с данными
+    //static LinkedHashMap<String, DataSet> dataSetList = new LinkedHashMap<>();
+    // id запроса к серверу с данными
+    static String dataSetID;
+    // requestUrl get-запроса в SAP через сервер
+    static String requestUrl;
+
+
+
 
     public static void main(String[] args) throws IOException {
         connection = new Connection();
         launch(args);
-
     }
+
 
 
     //GETTERS & SETTERS start

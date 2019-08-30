@@ -76,6 +76,7 @@ public class Connection {
     }
 
     //Получение списка доступных систем
+    @SuppressWarnings("Duplicates")
     public LinkedHashMap<String, LinkedList<String>> getSystemsList() {
         WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") + "/rest/rest/wmap/connection");
 
@@ -96,6 +97,7 @@ public class Connection {
     }
 
     //Попытка войти в систему
+    @SuppressWarnings("Duplicates")
     public LinkedHashMap<String, LinkedList<String>> tryLogin(String system, String username, String password, String language) {
 
         WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") +
@@ -116,8 +118,6 @@ public class Connection {
 
         return sapData;
     }
-
-
 
     //Преобразование ответа от сервера в LinkedHashMap
     public static LinkedHashMap<String, LinkedList<String>> deserialize(ClientResponse response) {

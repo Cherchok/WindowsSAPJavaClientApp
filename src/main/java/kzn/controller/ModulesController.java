@@ -27,7 +27,7 @@ public class ModulesController extends Controller implements Initializable {
     @FXML
     private Button okButton;
 
-    public String ltrimZeros(String strToTrim) {
+    public static String ltrimZeros(String strToTrim) {
         int zerosLen = 0;
         while (strToTrim.charAt(zerosLen) == '0') zerosLen++;
         return strToTrim.substring(zerosLen);
@@ -35,6 +35,8 @@ public class ModulesController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        //Инициализация списка модулей
         ObservableList<String> modules = FXCollections.observableArrayList();
         boolean isLabelSet = false;
         LinkedList<String> modulesList = ClientActivity.getModulesList();
@@ -58,6 +60,8 @@ public class ModulesController extends Controller implements Initializable {
         if (modulesListBox.getValue() == null) {
             return;
         }
+
+        //Передача в главный класс имени выбранного модуля
         ClientActivity.setSelectedModule( (String)modulesListBox.getValue() );
         String selectedAppID = ClientActivity.getSelectedModuleID();
 
@@ -75,6 +79,7 @@ public class ModulesController extends Controller implements Initializable {
         }
     }
 
+    //Действие при выборе модуля
     public void onModuleSelected(ActionEvent actionEvent) {
         okButton.setDisable(false);
         descriptionArea.setText("No description");

@@ -22,6 +22,7 @@ public abstract class Controller {
     //Текущая Stage
     protected Stage stage;
 
+    //Список предыдущих сцен
     private LinkedHashMap<String, String> menuList = new LinkedHashMap<>();
 
     public void setPrevStage(Stage stage) {setPrevStageScenes(stage, new LinkedHashMap<>());}
@@ -32,6 +33,46 @@ public abstract class Controller {
         this.menuList = prevScenes;
     }
 
+    //Формирование цепочки переходов между сценами
+    public void menuDraw(Pane pane) {
+
+        HBox menuBox = new HBox();
+        AnchorPane.setLeftAnchor(menuBox, 0D);
+        AnchorPane.setRightAnchor(menuBox, 0D);
+        AnchorPane.setBottomAnchor(menuBox, 0D);
+        menuBox.setStyle("-fx-background-color: lightgrey;");
+
+        for (String menuItem : menuList.keySet()) {
+
+            //Стрелка > между кнопками
+            if (!menuList.keySet().toArray()[0].equals(menuItem)) {
+                Label arrowLabel = new Label(">");
+                arrowLabel.setMinWidth(arrowLabel.getWidth());
+                HBox.setMargin(arrowLabel, new Insets(3, 0, 0, 0));
+                menuBox.getChildren().add(arrowLabel);
+            }
+
+            //Кнопка для каждой сцены
+            Button menuItemButton = new Button(menuItem);
+            menuItemButton.setText(menuItem);
+            menuItemButton.setOnAction((ae) -> {
+                LinkedHashMap<String, String> newMenuList = new LinkedHashMap<>();
+                for (String itemKey : menuList.keySet()) {
+                    if (!itemKey.equals(menuItemButton.getText())) newMenuList.put(itemKey, menuList.get(itemKey));
+                    else {
+                        newMenuList.put(itemKey, menuList.get(itemKey));
+                        break;
+                    }
+                }
+                menuList = newMenuList;
+                this.changeScene(menuList.get(menuItemButton.getText()), menuItemButton.getText());
+            });
+            menuBox.getChildren().add(menuItemButton);
+        }
+        pane.getChildren().add(menuBox);
+        //TODO При превышении длины окна оставлять только кнопку предыдущей сцены
+    }
+
     //Изменение сцены на текущей Stage
     public void changeScene(String scenePath, String title) {
         Platform.runLater(() -> {
@@ -40,36 +81,9 @@ public abstract class Controller {
                         FXMLLoader myLoader = new FXMLLoader(url1);
                         Pane pane = (Pane) myLoader.load();
 
-                        HBox menuBox = new HBox();
-                        AnchorPane.setLeftAnchor(menuBox, 0D);
-                        AnchorPane.setRightAnchor(menuBox, 0D);
-                        AnchorPane.setBottomAnchor(menuBox, 0D);
-                        menuBox.setStyle("-fx-background-color: lightgrey;");
-                        menuList.put(title, scenePath);
-                        for (String menuItem : menuList.keySet()) {
-                            if (!menuList.keySet().toArray()[0].equals(menuItem)) {
-                                Label arrowLabel = new Label(">");
-                                HBox.setMargin(arrowLabel, new Insets(3, 0, 0, 0));
-                                menuBox.getChildren().add(arrowLabel);
-                            }
-                            Button menuItemButton = new Button(menuItem);
-                            menuItemButton.setText(menuItem);
-                            menuItemButton.setOnAction((ae) -> {
-                                LinkedHashMap<String, String> newMenuList = new LinkedHashMap<>();
-                                for (String itemKey : menuList.keySet()) {
-                                    if (!itemKey.equals(menuItemButton.getText())) newMenuList.put(itemKey, menuList.get(itemKey));
-                                    else {
-                                        newMenuList.put(itemKey, menuList.get(itemKey));
-                                        break;
-                                    }
-                                }
-                                menuList = newMenuList;
-                                this.changeScene(menuList.get(menuItemButton.getText()), menuItemButton.getText());
-                            });
-                            menuBox.getChildren().add(menuItemButton);
-                        }
-                        pane.getChildren().add(menuBox);
 
+                        menuList.put(title, scenePath);
+                        menuDraw(pane);
 
                         //Создание контроллера сцены
                         final Controller controller = (Controller) myLoader.getController();
@@ -83,6 +97,7 @@ public abstract class Controller {
                         stage.sizeToScene();
                         stage.setMinHeight(pane.getPrefHeight());
                         stage.setMinWidth(pane.getPrefWidth());
+
                     } catch (Exception ex) {
                         System.out.println("Error while changing Scene to" + scenePath);
                         ex.printStackTrace();
