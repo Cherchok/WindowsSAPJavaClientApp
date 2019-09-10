@@ -119,7 +119,30 @@ public class Connection {
         return sapData;
     }
 
+    @SuppressWarnings("Duplicates")
+    public LinkedHashMap<String, LinkedList<String>> getDataSet(String system, String username, String password, String clientID,
+                                                                String table, String fieldsQuan, String language,
+                                                                String where, String order, String group, String fieldNames) {
+        WebResource webResource = client.resource("http://" + ipHolder.getProperty("ip") +
+                "/rest/rest/wmap/" + system + "/" + username + "/" + password + "/" +
+                clientID + "/" + table + "/" + fieldsQuan + "/" + language + "/"
+                + where + "/" + order + "/" + group + "/" + fieldNames);
 
+        ClientResponse response = webResource.accept("applications/json;charset=utf-8").get(ClientResponse.class);
+
+        if (response.getStatus() != 200) {
+            status = ConnectionStatus.IP_ERROR;
+            System.out.println("Failed with HTTP Error code: " + response.getStatus());
+            String error = response.getEntity(String.class);
+            System.out.println("Error: "+error);
+            return null;
+        }
+        status = ConnectionStatus.SUCCESS;
+
+        LinkedHashMap<String, LinkedList<String>> sapData = deserialize(response);
+
+        return sapData;
+    }
 
     //Преобразование ответа от сервера в LinkedHashMap
     public static LinkedHashMap<String, LinkedList<String>> deserialize(ClientResponse response) {

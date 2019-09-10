@@ -44,12 +44,6 @@ public class ClientActivity extends Application {
     private static String selectedModuleID;
     // список id модулей
     private static LinkedList<String> moduleIDlist = new LinkedList<>();
-    // список запросов к серверу с данными
-    //static LinkedHashMap<String, dataset> dataSetList = new LinkedHashMap<>();
-    // id запроса к серверу с данными
-    static String dataSetID;
-    // requestUrl get-запроса в SAP через сервер
-    static String requestUrl;
 
 
 
