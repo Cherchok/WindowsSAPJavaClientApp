@@ -101,6 +101,8 @@ public class SystemsController extends Controller implements Initializable {
                 return;
             }
 
+            ClientActivity.setSelectedSystem(ClientActivity.getSystems().get((String)systemsListBox.getValue()).get(0));
+
             ClientActivity.readSyst(sapDataList);
 
             System.out.println(ClientActivity.getClientID());

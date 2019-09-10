@@ -28,6 +28,8 @@ public class ClientActivity extends Application {
 
     //Список систем
     private static LinkedHashMap<String, LinkedList<String>> systems;
+    //Адрес выбранной системы
+    private static String selectedSystem;
     // клиентский ID полученный от сервера
     private static String clientID;
     // имя пользователя
@@ -62,6 +64,10 @@ public class ClientActivity extends Application {
     }
 
     public static void setSystems(LinkedHashMap<String, LinkedList<String>> systems) { ClientActivity.systems = systems; }
+
+    public static String getSelectedSystem() { return selectedSystem; }
+
+    public static void setSelectedSystem(String selectedSystem) { ClientActivity.selectedSystem = selectedSystem; }
 
     public static String getClientID() {
         return clientID;
