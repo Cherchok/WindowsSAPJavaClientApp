@@ -1,21 +1,12 @@
 package kzn.controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import kzn.model.ClientActivity;
-import kzn.model.Connection;
+import kzn.model.httpsconnection.Connection;
 
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
 public class StartController extends Controller {

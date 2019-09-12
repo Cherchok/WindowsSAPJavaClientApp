@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import kzn.model.ClientActivity;
-import kzn.model.Connection;
+import kzn.model.httpsconnection.Connection;
 import kzn.properties.MyPropertiesHolder;
 
 import java.io.IOException;

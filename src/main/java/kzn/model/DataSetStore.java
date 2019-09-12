@@ -12,24 +12,32 @@ public class DataSetStore {
     static String requestUrl;
 
 
-    private void showTable(String table,
-                              String fieldsQuan, String language, String where, String order,
-                              String group, String fieldNames) {
+    public static DataSet getDataSet(String table,
+                                     String fieldsQuan, String language, String where, String order,
+                                     String group, String fieldNames) {
         String dataSetID = getDataSetID(table, fieldsQuan, language, where, order, group, fieldNames);
         if (!dataSetList.containsKey(dataSetID)) {
             LinkedHashMap<String, LinkedList<String>> newDataSet =
                     ClientActivity.connection.getDataSet(ClientActivity.getSelectedSystem(),
-                    ClientActivity.getUsername(),
-                    ClientActivity.getPassword(),
-                    ClientActivity.getClientID(),
-                    table, fieldsQuan, language, where, order, group, fieldNames);
+                            ClientActivity.getUsername(),
+                            ClientActivity.getPassword(),
+                            ClientActivity.getClientID(),
+                            table, fieldsQuan, language, where, order, group, fieldNames);
             putDataSet(newDataSet, dataSetID);
         }
+        return dataSetList.get(dataSetID);
+    }
+
+    public void showTable(String table,
+                              String fieldsQuan, String language, String where, String order,
+                              String group, String fieldNames) {
+        DataSet dataSetToShow = getDataSet(table, fieldsQuan, language, where, order, group, fieldNames);
+        callTableLayout(dataSetToShow);
     }
 
 
     //method showTable() in Android
-    public void callTableLayout(String dataSetID) {
+    private void callTableLayout(DataSet dataSet) {
 
     }
 
@@ -40,7 +48,7 @@ public class DataSetStore {
         dataSetList.put(dataSetID, dataSet);
     }
 
-    public String getDataSetID(String table,
+    public static String getDataSetID(String table,
                              String fieldsQuan, String language, String where, String order,
                              String group, String fieldNames) {
         return table + fieldsQuan + language + where + order + group + fieldNames;

@@ -1,4 +1,4 @@
-package kzn.model;
+package kzn.model.httpsconnection;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -6,8 +6,16 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.client.urlconnection.HTTPSProperties;
+import kzn.model.Mapa;
 import kzn.properties.MyPropertiesHolder;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -35,6 +43,7 @@ public class Connection {
             ipHolder.commit();
         }
         client = new Client();
+
     }
 
     public void setServerIP(String newIP) throws IOException {

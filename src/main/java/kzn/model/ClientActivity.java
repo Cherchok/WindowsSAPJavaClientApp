@@ -3,21 +3,19 @@ package kzn.model;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import kzn.controller.StartController;
+import kzn.model.httpsconnection.Connection;
 
 
 //Основной класс
@@ -47,11 +45,13 @@ public class ClientActivity extends Application {
     // список id модулей
     private static LinkedList<String> moduleIDlist = new LinkedList<>();
 
+    public static DataSetStore dataSetStore;
 
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, KeyManagementException, NoSuchAlgorithmException {
         connection = new Connection();
+        dataSetStore = new DataSetStore();
         launch(args);
     }
 

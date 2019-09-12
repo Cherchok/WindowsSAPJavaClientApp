@@ -3,6 +3,8 @@ package kzn.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import kzn.model.ClientActivity;
+import kzn.model.DataSetStore;
 
 public class ModuleA_Params extends Controller {
 
@@ -25,7 +27,13 @@ public class ModuleA_Params extends Controller {
 
 
     public void onEnter(ActionEvent actionEvent) {
-
+        ClientActivity.dataSetStore.showTable( tableField.getText(),
+                quantityField.getText(),
+                whereField.getText(),
+                orderField.getText(),
+                groupField.getText(),
+                namesField.getText(),
+                langField.getText() );
     }
 
 
