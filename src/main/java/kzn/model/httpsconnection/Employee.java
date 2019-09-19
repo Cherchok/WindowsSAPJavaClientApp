@@ -1,4 +1,4 @@
-package kzn.model;
+package kzn.model.httpsconnection;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

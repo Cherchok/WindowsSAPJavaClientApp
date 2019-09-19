@@ -22,6 +22,11 @@ public abstract class Controller {
     //Текущая Stage
     protected Stage stage;
 
+    //Данные, полученные от предыдущей сцены
+    //Object[] data;
+
+    LinkedHashMap<String, Object> data;
+
     //Список предыдущих сцен
     private LinkedHashMap<String, String> menuList = new LinkedHashMap<>();
 
@@ -104,5 +109,9 @@ public abstract class Controller {
                     }
                 }
         );
+    }
+
+    public void changeScene(String scenePath, String title, Object[] data) {
+
     }
 }

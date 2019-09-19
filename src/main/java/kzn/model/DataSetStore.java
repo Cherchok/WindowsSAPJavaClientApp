@@ -11,7 +11,7 @@ public class DataSetStore {
     // requestUrl get-запроса в SAP через сервер
     static String requestUrl;
 
-
+    //Получение
     public static DataSet getDataSet(String table,
                                      String fieldsQuan, String language, String where, String order,
                                      String group, String fieldNames) {
@@ -28,18 +28,19 @@ public class DataSetStore {
         return dataSetList.get(dataSetID);
     }
 
-    public void showTable(String table,
-                              String fieldsQuan, String language, String where, String order,
-                              String group, String fieldNames) {
-        DataSet dataSetToShow = getDataSet(table, fieldsQuan, language, where, order, group, fieldNames);
-        callTableLayout(dataSetToShow);
-    }
 
-
-    //method showTable() in Android
-    private void callTableLayout(DataSet dataSet) {
-
-    }
+//    public void showTable(String table,
+//                              String fieldsQuan, String language, String where, String order,
+//                              String group, String fieldNames) {
+//        DataSet dataSetToShow = getDataSet(table, fieldsQuan, language, where, order, group, fieldNames);
+//        callTableLayout(dataSetToShow);
+//    }
+//
+//
+//    //method showTable() in Android
+//    private void callTableLayout(DataSet dataSet) {
+//
+//    }
 
     // добавление данных в список запросов
     public static void putDataSet(LinkedHashMap<String, LinkedList<String>> map, String dataSetID) {
