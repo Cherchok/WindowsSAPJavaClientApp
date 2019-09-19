@@ -51,11 +51,6 @@ public class Connection {
             ipHolder.setProperty("ip", "192.168.0.13:8443");
             ipHolder.commit();
         }
-        //client = new Client();
-
-        //TODO HTTPS connection client
-
-        //client = hostIgnoringClient();
 
         final ClientConfig config = new DefaultClientConfig();
         config.getProperties()
