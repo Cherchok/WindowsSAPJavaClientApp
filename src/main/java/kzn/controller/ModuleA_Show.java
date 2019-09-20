@@ -13,8 +13,8 @@ public class ModuleA_Show extends Controller {
 
     DataSet dataSet = new DataSet();
 
-    public void setData(DataSet dataSet) {
-        this.dataSet = dataSet;
-
+    public ModuleA_Show() {
+        this.dataSet = (DataSet) dataFromPrevController.get("dataset");
     }
+
 }

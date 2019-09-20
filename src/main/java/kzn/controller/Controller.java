@@ -25,7 +25,7 @@ public abstract class Controller {
     //Данные, полученные от предыдущей сцены
     //Object[] data;
 
-    LinkedHashMap<String, Object> data;
+    protected LinkedHashMap<String, Object> dataFromPrevController;
 
     //Список предыдущих сцен
     private LinkedHashMap<String, String> menuList = new LinkedHashMap<>();

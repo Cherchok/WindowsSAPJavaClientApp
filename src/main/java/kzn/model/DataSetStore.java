@@ -15,6 +15,20 @@ public class DataSetStore {
     public static DataSet getDataSet(String table,
                                      String fieldsQuan, String language, String where, String order,
                                      String group, String fieldNames) {
+        table = table.equals(" ") ?
+                table.replaceAll(" ", "~~~") : table;
+        fieldsQuan = fieldsQuan.equals(" ") ?
+                fieldsQuan.replaceAll(" ", "~~~") : fieldsQuan;
+        language = language.equals(" ") ?
+                language.replaceAll(" ", "~~~") : language;
+        where = where.equals(" ") ?
+                where.replaceAll(" ", "~~~") : where;
+        order = order.equals(" ") ?
+                order.replaceAll(" ", "~~~") : order;
+        group = group.equals(" ") ?
+                group.replaceAll(" ", "~~~") : group;
+        fieldNames = fieldNames.equals(" ") ?
+                fieldNames.replaceAll(" ", "~~~") : fieldNames;
         String dataSetID = getDataSetID(table, fieldsQuan, language, where, order, group, fieldNames);
         if (!dataSetList.containsKey(dataSetID)) {
             LinkedHashMap<String, LinkedList<String>> newDataSet =

@@ -45,6 +45,7 @@ public class ModuleA_Params extends Controller {
                 langField.getText() );
 
         //TODO Передача таблицы в ModuleA_Show
+        this.dataFromPrevController.put("dataset", dataSet);
     }
 
 
