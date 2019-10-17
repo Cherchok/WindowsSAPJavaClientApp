@@ -14,6 +14,8 @@ import kzn.model.DataSetStore;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 public class ModuleA_Params extends Controller {
 
@@ -45,7 +47,9 @@ public class ModuleA_Params extends Controller {
                 langField.getText() );
 
         //TODO Передача таблицы в ModuleA_Show
-        this.dataFromPrevController.put("dataset", dataSet);
+        LinkedHashMap<String, Object> dataForNextController = new LinkedHashMap<>();
+        dataForNextController.put("dataset", dataSet);
+        this.changeScene("src/main/java/kzn/view/ModuleA_Show.fxml", "Table view", dataForNextController);
     }
 
 

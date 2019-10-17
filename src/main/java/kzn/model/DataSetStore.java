@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class DataSetStore {
     // список запросов к серверу с данными
-    static LinkedHashMap<String, DataSet> dataSetList = new LinkedHashMap<>();
+    private static LinkedHashMap<String, DataSet> dataSetList = new LinkedHashMap<>();
     // id запроса к серверу с данными
     //private static String dataSetID;
     // requestUrl get-запроса в SAP через сервер
@@ -15,20 +15,13 @@ public class DataSetStore {
     public static DataSet getDataSet(String table,
                                      String fieldsQuan, String language, String where, String order,
                                      String group, String fieldNames) {
-        table = table.equals(" ") ?
-                table.replaceAll(" ", "~~~") : table;
-        fieldsQuan = fieldsQuan.equals(" ") ?
-                fieldsQuan.replaceAll(" ", "~~~") : fieldsQuan;
-        language = language.equals(" ") ?
-                language.replaceAll(" ", "~~~") : language;
-        where = where.equals(" ") ?
-                where.replaceAll(" ", "~~~") : where;
-        order = order.equals(" ") ?
-                order.replaceAll(" ", "~~~") : order;
-        group = group.equals(" ") ?
-                group.replaceAll(" ", "~~~") : group;
-        fieldNames = fieldNames.equals(" ") ?
-                fieldNames.replaceAll(" ", "~~~") : fieldNames;
+        if (table.equals("")) table = "~~~";
+        if (fieldsQuan.equals("")) fieldsQuan = "~~~";
+        if (language.equals("")) language = "~~~";
+        if (where.equals("")) where = "~~~";
+        if (order.equals("")) order = "~~~";
+        if (group.equals("")) group = "~~~";
+        if (fieldNames.equals("")) fieldNames = "~~~";
         String dataSetID = getDataSetID(table, fieldsQuan, language, where, order, group, fieldNames);
         if (!dataSetList.containsKey(dataSetID)) {
             LinkedHashMap<String, LinkedList<String>> newDataSet =

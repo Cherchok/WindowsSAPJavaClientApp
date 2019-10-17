@@ -25,7 +25,7 @@ public abstract class Controller {
     //Данные, полученные от предыдущей сцены
     //Object[] data;
 
-    protected LinkedHashMap<String, Object> dataFromPrevController;
+    protected LinkedHashMap<String, Object> dataFromPrevController = new LinkedHashMap<>();
 
     //Список предыдущих сцен
     private LinkedHashMap<String, String> menuList = new LinkedHashMap<>();
@@ -80,6 +80,10 @@ public abstract class Controller {
 
     //Изменение сцены на текущей Stage
     public void changeScene(String scenePath, String title) {
+        changeScene(scenePath, title, new LinkedHashMap<>());
+    }
+
+    public void changeScene(String scenePath, String title, LinkedHashMap<String, Object> data) {
         Platform.runLater(() -> {
                     try {
                         URL url1 = (new File(scenePath)).toURI().toURL();
@@ -96,6 +100,8 @@ public abstract class Controller {
                         //Передача контроллеру текущей Stage
                         controller.setPrevStageScenes(stage, this.menuList);
 
+                        controller.dataFromPrevController = data;
+
                         stage.setTitle(title);
 
                         stage.setScene(new Scene(pane));
@@ -109,9 +115,5 @@ public abstract class Controller {
                     }
                 }
         );
-    }
-
-    public void changeScene(String scenePath, String title, Object[] data) {
-
     }
 }

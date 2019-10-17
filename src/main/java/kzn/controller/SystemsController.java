@@ -82,7 +82,11 @@ public class SystemsController extends Controller implements Initializable {
         String password = passwordField.getText();
         String language = langField.getText();
         LinkedHashMap<String, LinkedList<String>> sapData = ClientActivity.connection.tryLogin(system, username, password, language);
-        if (ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) return sapData;
+        if (ClientActivity.connection.getStatus() == Connection.ConnectionStatus.SUCCESS) {
+            ClientActivity.setUsername(username);
+            ClientActivity.setPassword(password);
+            return sapData;
+        }
         else return null;
     }
 
