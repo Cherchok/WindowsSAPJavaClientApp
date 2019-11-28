@@ -22,6 +22,8 @@ public abstract class Controller {
     //Текущая Stage
     protected Stage stage;
 
+    //TEST
+
     //Данные, полученные от предыдущей сцены
     //Object[] data;
 
